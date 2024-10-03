@@ -43,6 +43,7 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
 
           ContextModel cm = ContextModel();
           result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          equation = result;
         } catch (e) {
           result = "Error";
         }
@@ -152,20 +153,19 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 calculatorButton("AC", () => buttonFunction("AC")),
+                calculatorButton("AC", () => buttonFunction("AC")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-               
-                        calculatorButton("+/-", () => buttonFunction("+/-")),
+                calculatorButton("+/-", () => buttonFunction("+/-")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                 calculatorButton("%", () => buttonFunction("%")),
+                calculatorButton("%", () => buttonFunction("%")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                 calculatorButton("÷", () => buttonFunction("÷")),
+                calculatorButton("÷", () => buttonFunction("÷")),
               ],
             ),
             SizedBox(
@@ -174,11 +174,11 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               calculatorButton("7", () => buttonFunction("7")),
+                calculatorButton("7", () => buttonFunction("7")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-               calculatorButton("8", () => buttonFunction("8")),
+                calculatorButton("8", () => buttonFunction("8")),
                 SizedBox(
                   width: buttonSpace,
                 ),
@@ -186,7 +186,7 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
                 SizedBox(
                   width: buttonSpace,
                 ),
-               calculatorButton("x", () => buttonFunction("*")),
+                calculatorButton("x", () => buttonFunction("*")),
               ],
             ),
             SizedBox(
