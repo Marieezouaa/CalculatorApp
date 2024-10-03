@@ -11,10 +11,7 @@ class Calculatorfunctionality extends StatefulWidget {
 }
 
 class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
-  Color eqColor = Colors.white38;
-  Color resultColor = Colors.white;
-
-  double buttonSpace = 5.6;
+  double buttonSpace = 5.5;
   double rowSpace = 15;
 
   String equation = "0";
@@ -28,11 +25,6 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
       if (buttonCharacter == "AC") {
         equation = "0";
         result = "0";
-      } else if (buttonCharacter == "⌫") {
-        equation = equation.substring(0, equation.length - 1);
-        if (equation == "") {
-          equation = "0";
-        }
       } else if (buttonCharacter == "+/-") {
         if (equation[0] != '-') {
           equation = '-$equation';
@@ -89,7 +81,7 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
                         buttonCharacter == '-' ||
                         buttonCharacter == '+' ||
                         buttonCharacter == '=')
-                    ? const Color.fromARGB(248, 245, 158, 65)
+                    ? Colors.orange
                     : const Color.fromARGB(248, 65, 65, 65)),
         child: Text(
           buttonCharacter,
@@ -103,6 +95,15 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
   Widget build(context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.black54,
+        leading: const Icon(
+          Icons.list,
+          color: Colors.orange,
+          size: 30.5,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -121,7 +122,7 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
                       child: Text(
                         result,
                         style: TextStyle(
-                          color: resultColor,
+                          color: Colors.white,
                           fontSize: 80,
                         ),
                       ),
@@ -137,7 +138,7 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
                         equation,
                         style: TextStyle(
                           fontSize: 75,
-                          color: eqColor,
+                          color: Colors.white38,
                         ),
                       ),
                     ),
@@ -146,29 +147,25 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    child: calculatorButton("AC", () => buttonFunction("AC"))),
-                SizedBox(
-                  width: buttonSpace,
-                ),
-                SizedBox(
-                    child:
-                        calculatorButton("+/-", () => buttonFunction("+/-"))),
+                 calculatorButton("AC", () => buttonFunction("AC")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                SizedBox(
-                    child: calculatorButton("%", () => buttonFunction("%"))),
+               
+                        calculatorButton("+/-", () => buttonFunction("+/-")),
                 SizedBox(
                   width: buttonSpace,
                 ),
+                 calculatorButton("%", () => buttonFunction("%")),
                 SizedBox(
-                    child: calculatorButton("÷", () => buttonFunction("÷")))
+                  width: buttonSpace,
+                ),
+                 calculatorButton("÷", () => buttonFunction("÷")),
               ],
             ),
             SizedBox(
@@ -177,23 +174,19 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    child: calculatorButton("7", () => buttonFunction("7"))),
-                SizedBox(
-                  width: buttonSpace,
-                ),
-                SizedBox(
-                    child: calculatorButton("8", () => buttonFunction("8"))),
+               calculatorButton("7", () => buttonFunction("7")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                SizedBox(
-                    child: calculatorButton("9", () => buttonFunction("9"))),
+               calculatorButton("8", () => buttonFunction("8")),
                 SizedBox(
                   width: buttonSpace,
                 ),
+                calculatorButton("9", () => buttonFunction("9")),
                 SizedBox(
-                    child: calculatorButton("x", () => buttonFunction("*")))
+                  width: buttonSpace,
+                ),
+               calculatorButton("x", () => buttonFunction("*")),
               ],
             ),
             SizedBox(
@@ -202,23 +195,19 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    child: calculatorButton("4", () => buttonFunction("4"))),
-                SizedBox(
-                  width: buttonSpace,
-                ),
-                SizedBox(
-                    child: calculatorButton("5", () => buttonFunction("5"))),
+                calculatorButton("4", () => buttonFunction("4")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                SizedBox(
-                    child: calculatorButton("6", () => buttonFunction("6"))),
+                calculatorButton("5", () => buttonFunction("5")),
                 SizedBox(
                   width: buttonSpace,
                 ),
+                calculatorButton("6", () => buttonFunction("6")),
                 SizedBox(
-                    child: calculatorButton("-", () => buttonFunction("-")))
+                  width: buttonSpace,
+                ),
+                calculatorButton("-", () => buttonFunction("-")),
               ],
             ),
             SizedBox(
@@ -227,23 +216,19 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    child: calculatorButton("1", () => buttonFunction("1"))),
-                SizedBox(
-                  width: buttonSpace,
-                ),
-                SizedBox(
-                    child: calculatorButton("2", () => buttonFunction("2"))),
+                calculatorButton("1", () => buttonFunction("1")),
                 SizedBox(
                   width: buttonSpace,
                 ),
-                SizedBox(
-                    child: calculatorButton("3", () => buttonFunction("3"))),
+                calculatorButton("2", () => buttonFunction("2")),
                 SizedBox(
                   width: buttonSpace,
                 ),
+                calculatorButton("3", () => buttonFunction("3")),
                 SizedBox(
-                    child: calculatorButton("+", () => buttonFunction("+")))
+                  width: buttonSpace,
+                ),
+                calculatorButton("+", () => buttonFunction("+")),
               ],
             ),
             SizedBox(
@@ -252,18 +237,15 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    child: calculatorButton("0", () => buttonFunction("0"))),
-                SizedBox(
-                  width: buttonSpace,
-                ),
-                SizedBox(
-                    child: calculatorButton(".", () => buttonFunction("."))),
+                calculatorButton("0", () => buttonFunction("0")),
                 SizedBox(
                   width: buttonSpace,
                 ),
+                calculatorButton(".", () => buttonFunction(".")),
                 SizedBox(
-                    child: calculatorButton("=", () => buttonFunction("=")))
+                  width: buttonSpace,
+                ),
+                calculatorButton("=", () => buttonFunction("=")),
               ],
             )
           ],

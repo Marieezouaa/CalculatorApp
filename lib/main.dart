@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:calculatorapp/calculatorFunctionality.dart';
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Calculator App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+  runApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const Calculatorfunctionality(),
-    );
-  }
+    ),
+  );
 }
