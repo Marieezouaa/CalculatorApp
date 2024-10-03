@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Calculatorfunctionality extends StatefulWidget {
   const Calculatorfunctionality({super.key});
@@ -21,16 +22,66 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
   double buttonSpace = 2;
   double rowSpace = 5;
 
-  TextEditingController yourController = TextEditingController();
-  String enteredText = "";
-
   String equation = "0";
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
   double resultFontSize = 48.0;
 
-  buttonFunction(String buttonCharacter) {}
+  buttonFunction(String buttonCharacter) {
+    // used to check if the result contains a decimal
+    String doesContainDecimal(dynamic result) {
+      if (result.toString().contains('.')) {
+        List<String> splitDecimal = result.toString().split('.');
+        if (!(int.parse(splitDecimal[1]) > 0)) {
+          return result = splitDecimal[0].toString();
+        }
+      }
+      return result;
+    }
+
+    setState(() {
+      if (buttonCharacter == "AC") {
+        equation = "0";
+        result = "0";
+      } else if (buttonCharacter == "⌫") {
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = "0";
+        }
+      } else if (buttonCharacter == "+/-") {
+        if (equation[0] != '-') {
+          equation = '-$equation';
+        } else {
+          equation = equation.substring(1);
+        }
+      } else if (buttonCharacter == "=") {
+        expression = equation;
+        expression = expression.replaceAll('X', '*');
+        expression = expression.replaceAll('÷', '/');
+        expression = expression.replaceAll('%', '%');
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expression);
+
+          ContextModel cm = ContextModel();
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+          if (expression.contains('%')) {
+            result = doesContainDecimal(result);
+          }
+        } catch (e) {
+          result = "Error";
+        }
+      } else {
+        if (equation == "0") {
+          equation = buttonCharacter;
+        } else {
+          equation = equation + buttonCharacter;
+        }
+      }
+    });
+  }
 
   Widget calculatorButton(String buttonCharacter, Color backgroundColor,
       Color textColor, void Function()? buttonFunction) {
@@ -43,19 +94,13 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
         style: ElevatedButton.styleFrom(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
-            backgroundColor: backgroundColor),
+            backgroundColor: Colors.black),
         child: Text(
           buttonCharacter,
-          style: const TextStyle(fontSize: 27, color: Colors.white),
+          style: TextStyle(fontSize: 27, color: textColor),
         ),
       ),
     );
-  }
-
-  int counter = 1;
-
-  void reset() {
-    setState(() {});
   }
 
   @override
@@ -76,20 +121,66 @@ class _CalculatorfunctionalityState extends State<Calculatorfunctionality> {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextField(
-              controller: yourController,
-              decoration: InputDecoration(
-                fillColor: const Color.fromARGB(255, 239, 239, 239),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  // borderSide: BorderSide.none,
+            Align(
+              alignment: Alignment.bottomRight,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(result,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 80))),
+                        const Icon(Icons.more_vert,
+                            color: Colors.orange, size: 30),
+                        const SizedBox(width: 20),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Text(equation,
+                              style: const TextStyle(
+                                fontSize: 40,
+                                color: Colors.white38,
+                              )),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.backspace_outlined,
+                              color: Colors.orange, size: 30),
+                          onPressed: () {
+                            buttonFunction("⌫");
+                          },
+                        ),
+                        const SizedBox(width: 20),
+                      ],
+                    )
+                  ],
                 ),
-                hintText: '',
               ),
             ),
+            // TextField(
+            //   controller: yourController,
+            //   decoration: InputDecoration(
+            //     fillColor: const Color.fromARGB(255, 239, 239, 239),
+            //     filled: true,
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(20),
+            //       // borderSide: BorderSide.none,
+            //     ),
+            //     hintText: '',
+            //   ),
+            // ),
             const SizedBox(
               height: 30,
             ),
